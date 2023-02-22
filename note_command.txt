@@ -1,0 +1,102 @@
+gcloud builds submit --tag gcr.io/vision-ai-project-288205/aka-tool .
+
+gcloud container clusters create aka-tool-cluster \
+	--num-nodes 1 \
+	--enable-basic-auth \
+	--issue-client-certificate \
+	--zone us-central1-a
+	
+kubectl get nodes
+
+deployment.yaml
+kubectl apply -f deployment.yaml
+
+kubectl get pods
+--
+services.yaml
+
+kubectl apply -f services.yaml
+kubectl get services
+--------
+https://codelabs.developers.google.com/codelabs/cloud-windows-containers-computeengine#9
+
+Windows Server 2019 Datacenter for Containers image
+gcloud builds submit --tag gcr.io/vision-ai-project-288205/aka-tool .
+
+docker build -t gcr.io/vision-ai-project-288205/iis-site-windows:latest .
+
+docker run -d -p 80:80 gcr.io/vision-ai-project-288205/iis-site-windows:latest
+docker exec -it id cmd.exe
+
+koi-owner2020@vision-ai-project-288205.iam.gserviceaccount.com
+
+gcloud auth activate-service-account koi-owner2020@vision-ai-project-288205.iam.gserviceaccount.com --key-file=google_model_training_live_site.json
+gcloud auth configure-docker
+docker push gcr.io/vision-ai-project-288205/iis-site-windows:latest
+------------------------------------
+https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows
+gcloud container clusters delete aka-tool-cluster \
+	--zone us-central1-a
+	
+gcloud container node-pools delete aka-tool-node \
+    --cluster=aka-tool-cluster \
+	--zone us-central1-a	
+
+//Resize nodes
+gcloud container clusters resize aka-tool-cluster \
+    --num-nodes 1 \
+	--zone us-central1-a
+gcloud container node-pools resize aka-tool-node \
+    --num-nodes 1 \
+	--zone us-central1-a
+
+	
+gcloud container clusters create aka-tool-cluster \
+    --enable-ip-alias \
+    --num-nodes=1 \
+	--zone us-central1-a
+
+gcloud container node-pools create aka-tool-node \
+    --cluster=aka-tool-cluster \
+    --image-type=WINDOWS_LTSC \
+    --no-enable-autoupgrade \
+    --machine-type=n1-standard-2 \
+    --num-nodes=1 \
+	--zone us-central1-a
+
+gcloud container node-pools list --cluster aka-tool-cluster \
+	--zone us-central1-a
+
+gcloud container clusters get-credentials aka-tool-cluster \
+	--zone us-central1-a
+	
+kubectl get mutatingwebhookconfigurations
+
+kubectl get nodes
+
+deployment.yaml
+kubectl apply -f deployment.yaml
+
+kubectl get pods
+--
+kubectl expose deployment iis-site-windows --type="LoadBalancer"
+
+kubectl get service
+
+
+to scale
+kubectl scale deployment iis-site-windows --replicas=2
+
+run pdf tool
+PDFGetText.exe p38.pdf 1 0.059794314205646515 0.114490807056427 0.22312453389167786 0.14330828189849854
+
+6.get ket qua ve local:
+docker cp lucid_hofstadter:C:\inetpub\wwwroot\pdftool\res.txt C:\my-windows-app\tmp
+
+
+remove service deployment
+kubectl delete deployment iis-site-windows
+
+
+        kubectl scale deployment iis-site-windows --replicas=2
+        kubectl set image deployment/iis-site-windows iis-site-windows=gcr.io/vision-ai-project-288205/iis-site-windows:latest
