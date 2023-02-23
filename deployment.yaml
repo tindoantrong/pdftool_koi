@@ -18,6 +18,6 @@ spec:
         kubernetes.io/os: windows
       containers:
       - name: iis-site-windows
-        image: gcr.io/vision-ai-project-288205/iis-site-windows:1.0.19
+        image: gcr.io/vision-ai-project-288205/aka-tool:latest
         ports:
         - containerPort: 80
